@@ -11,17 +11,18 @@ body {
 }
 
 header {
-   // background-color: blanchedalmond;
+  
     color: blanchedalmond;
     font-size: 4em;
     font-weight: bold;
-    padding: 2vh 15vh;
+    padding: 4vh 15vh;
     height: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;   
-    text-shadow: 0 0 10px;
-    margin-bottom: 5vh;
+    text-shadow: rgb(245, 212, 212) 0 0 10px;
+    
+    
 
 }
 
@@ -33,21 +34,37 @@ main {
 }
 
 .container {
-    display: grid;
-    grid-template-columns: repeat(64, 1fr);
-    grid-template-rows: repeat(64, 1fr) ;
+    background-color:rgb(255, 255, 255);
+    display: grid;   
     border-radius: 10px;
-    width: 600px;
-    height: 600px;  
-    
+    width: 900px;
+    height: 900px;  
+    box-shadow: rgba(253, 253, 253, 0.4) 0px 2px 4px, rgba(245, 243, 243, 0.3) 0px 7px 13px -3px, rgba(248, 245, 245, 0.2) 0px -3px 0px inset;
 }
 
-.square {
-    
-    background-color:rgb(245, 212, 212);
-    
+@media screen  and (max-width: 600px) {
+    .container {
+        width: 500px;
+        height: 500px;
+    }
 
-/* .square:hover {
-    //background-color: b8c4bb ;
-    border: 1px solid red;
-} */
+    header {
+        font-size: 3em;
+        padding: 3vh 5vh;
+    }
+  }
+
+  @media screen  and (max-width: 400px) {
+    .container {
+        width: 380px;
+        height: 380px;
+    }
+
+    header {
+        font-size: 2em;
+        padding: 2vh 2vh;
+        justify-content: flex-start;
+    }
+
+ 
+  }
