@@ -10,15 +10,26 @@
 </head>
 <body>
     <header>
-        Etch-a-Sketch
+        <h1>Etch-a-Sketch</h1>
+       
     </header>
-    <main>
-        <div class="container">
+    <main>   
+        <div class="navbar">  
             
+            <input class="clear"  name="clear" type="radio" label="Clear"></input>
+            <input id="color" name="meh" type="color" value="">
+            <input class="color option" name="nav" type="radio" label="Color" checked ></input>
+            <input class="rainbow  option" name="nav" type="radio" label="Rainbow"></input>
+            <input class="darken  option" name="nav" type="radio" label="Darken"></input>
+       
+        </div>
+        <div id="container"></div>
+        <div class="ranger">
+            <span>Size</span>
+            <input type="range" min="16" max="100" value="12" orient="vertical" class="slider">
+            <output>16</output>
         </div>
     </main>
-    <footer>
-
-    </footer>
+    <footer></footer>
 </body>
 </html>
