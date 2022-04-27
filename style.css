@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Square+Peg&display=swap');
 
 * {
@@ -8,7 +7,7 @@
 
 body {
     background-color: #2D2E2E;
-    font-family: 'Grape Nuts', cursive;
+    font-family: 'Square Peg', cursive;
 }
 
 main {
