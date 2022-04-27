@@ -5,11 +5,11 @@ const clear = document.querySelector('.clear');
 const sliderValue = document.querySelector('output');
 const option = document.querySelectorAll('.option');
 const colorSel = document.querySelector('#color');
-const backgroundColor = '#c8e0ed';
+const backgroundColor = '#FBFBFB';
 let square = document.querySelectorAll('.square');
 let isDrawing = false;
 
-
+addInitialSetup();
 createGrid();
 
 /* Setup range slider and clear button*/
@@ -35,7 +35,7 @@ function clearGrid() {
 /* Create grid */
 
 function createGrid() {
-    addInitialSetup();
+    
     clearGrid();
     const gridSize = slider.value;
     container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
