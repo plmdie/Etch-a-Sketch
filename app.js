@@ -8,40 +8,34 @@ const colorSel = document.querySelector('#color');
 const backgroundColor = '#c8e0ed';
 let square = document.querySelectorAll('.square');
 let isDrawing = false;
-let isDarken = true;
+
 
 createGrid();
 
+/* Setup range slider and clear button*/
 
-/* Slider  */
-/* Update slider value and create grid */
-sliderValue.innerHTML = slider.value;
+function addInitialSetup() {
+    slider.addEventListener('input', function () {
+        sliderValue.innerHTML = slider.value;
+    }, false);
+    slider.addEventListener('change', () => createGrid());
+    clear.addEventListener('click', () => {
+        createGrid();
+        isDrawing = false;   
+    });
+}
 
-slider.addEventListener('input', function () {
-    sliderValue.innerHTML = slider.value;
-}, false);
-
-slider.addEventListener('change', () => createGrid());
-
-/* Clear Button */
-///// Create nav buttons event listeners/////
-clear.addEventListener('click', () => {
-    createGrid();
-    isDrawing = false;   
-});
-
-
-            
-
-
+/* Clear grid */
 
 function clearGrid() {
    const grid = document.querySelectorAll('.square');
    grid.forEach(item => item.remove());
 }
 
-/* make grid */
+/* Create grid */
+
 function createGrid() {
+    addInitialSetup();
     clearGrid();
     const gridSize = slider.value;
     container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
@@ -53,42 +47,35 @@ function createGrid() {
         container.appendChild(squareDiv);     
     }
     container.addEventListener('click', addListeners);
+    
 }
+
+/* Add event listeners */
 
 function addListeners() {
     square = document.querySelectorAll('.square');
     if (!isDrawing) {
-        square.forEach(item => item.addEventListener('mouseover', colorSelected));
+        square.forEach(item => item.addEventListener('mouseover', paintColor));
         isDrawing = true;
     } else {
-        square.forEach(item => item.removeEventListener('mouseover', colorSelected));
+        square.forEach(item => item.removeEventListener('mouseover', paintColor));
         isDrawing = false;
     }
 }
 
-function colorSelected(e) {
+/* Paint on grid */
+
+function paintColor(e) {   
     let colorMode = setColorMode();
-    console.log(`color mode is ${colorMode}`);
-    if (colorMode === 'darken') {
-        
-        let exists = e.target.classList.contains('first-time');
-        if (exists) {
-            let currentColor = getRGB(e.target.style.backgroundColor);
-            const currentColorDarken = currentColor.map(rgb => rgb - rgb / 10);
-            e.target.style.backgroundColor = `rgb(${currentColorDarken})`;
-        } else {
-            e.target.classList.add('first-time');
-            if (e.target.style.backgroundColor === hexToRgb(backgroundColor)) e.target.style.backgroundColor = '#bfbfbf';
-        }
-            
-    } 
+    if (colorMode === 'darken') e.target.style.backgroundColor = darken(e);
     if (colorMode === 'rainbow') e.target.style.backgroundColor = rainbow();
     if (colorMode === 'color')  {
         square.forEach(item => item.classList.remove('first-time'));
-        e.target.style.backgroundColor = colorSel.value
+        e.target.style.backgroundColor = colorSel.value;
     }
 }
 
+/* Return active Color Mode */
 
 function setColorMode() {
     let colorMode;
@@ -98,30 +85,6 @@ function setColorMode() {
     return colorMode;
 }
 
-
-
-/* function changeColor(e) {
-    
-    if (isDarken) {
-        let exists = e.target.classList.contains('first-time');
-
-        if (exists) {
-            let currentColor = e.target.style.backgroundColor;
-            
-            for (let i=0; i < currentColor.length; i++) {
-                currentColor[i] = currentColor[i] - parseInt(currentColor[i] / 10);
-            }
-            e.target.style.backgroundColor = `rgb(${currentColor})`; 
-        } else if (!exists) {
-            e.target.classList.add('first-time');
-            e.target.style.backgroundColor = `#000000`; 
-        }
-    } else {
-        square.forEach(item => item.classList.remove('first-time'));
-        
-    }    
-} */
-
 /* convert RGB string to array */
 
 function getRGB(rgb){
@@ -129,14 +92,32 @@ function getRGB(rgb){
     return rgb;     
 }
 
+/* convert hex to RGB */
+
 function hexToRgb(hex) {
     return `rgb(${parseInt(hex.substr(1,2), 16)}, ${parseInt(hex.substr(3,2), 16)}, ${parseInt(hex.substr(5,2), 16)})`;
 }  
 
-  function rainbow() {
-    const rainbow = [];
-    for (let i = 0; i < 3; i++) {
-        rainbow[i] = Math.floor(Math.random() * 254); 
+/* Create rainbow colors */
+
+function rainbow() {
+const rainbow = [];
+for (let i = 0; i < 3; i++) {
+    rainbow[i] = Math.floor(Math.random() * 254); 
+}
+return `rgb(${rainbow})`;
+}
+
+/* Create darken colors */
+
+function darken(e) {
+    let exists = e.target.classList.contains('first-time');
+    if (exists) {
+        let currentColor = getRGB(e.target.style.backgroundColor);
+        const currentColorDarken = currentColor.map(rgb => rgb - rgb / 10);
+        return `rgb(${currentColorDarken})`;
+    } else {
+        e.target.classList.add('first-time');
+        if (e.target.style.backgroundColor === hexToRgb(backgroundColor)) return '#bfbfbf';
     }
-    return `rgb(${rainbow})`;
-  }
+}

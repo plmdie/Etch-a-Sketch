@@ -88,14 +88,14 @@ header h1 {
 
 }
 .navbar .clear {
-    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+    border-image-source: linear-gradient(to left, #02e00d, #037c0d);
     text-shadow: #dddddd 0 0 10px;
 }
 
 
 
 .navbar .clear:hover{
-    background-image: linear-gradient(to left, #743ad5, #d53a9d);
+    background-image: linear-gradient(to left, #02e00d, #037c0d);
     /* background-image: linear-gradient(180deg, #95d891, #74bbad); */
 	color: #fff;
 	box-shadow: 0 1px 1px #0000002e;
